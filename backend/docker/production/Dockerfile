@@ -33,8 +33,12 @@ RUN npm install --ignore-scripts --omit=dev \
   && npm install pm2 -g \
   && pm2 update
 
+RUN npm uninstall better-sqlite3 \
+  && npm install better-sqlite3
+
 # Copy the built application from the builder stage
 COPY --chown=node:node --from=builder /build/dist/ .
+COPY --chown=node:node --from=builder /build/janadhikar.db .
 
 # Change the owner of the working directory to the node user
 USER node
