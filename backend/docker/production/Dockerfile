@@ -38,6 +38,8 @@ RUN npm uninstall better-sqlite3 \
 
 # Copy the built application from the builder stage
 COPY --chown=node:node --from=builder /build/dist/ .
+COPY --chown=node:node --from=builder /build/public /public
+
 
 # Change the owner of the working directory to the node user
 # USER node
