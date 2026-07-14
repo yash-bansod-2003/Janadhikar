@@ -24,8 +24,7 @@ export class Facility {
   description: string | null;
 
   @Column({
-    type: "enum",
-    enum: FACILITY_TYPE_VALUES,
+    type: "text",
     default: FACILITY_TYPES.OTHER,
   })
   type: FACILITY_TYPES;
@@ -39,7 +38,7 @@ export class Facility {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column({ type: "timestamp", nullable: true })
+  @Column({ type: "datetime", nullable: true })
   deleted_at: Date | null;
 
   @ManyToOne("Village", (village: Village) => village.facilities, {

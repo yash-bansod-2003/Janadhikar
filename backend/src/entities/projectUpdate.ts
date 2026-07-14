@@ -30,8 +30,7 @@ export class ProjectUpdate {
   progress_percentage: number;
 
   @Column({
-    type: "enum",
-    enum: PROJECT_STATUS_VALUES,
+    type: "text",
     default: PROJECT_STATUSES.PLANNED,
   })
   status_after_update: PROJECT_STATUSES;

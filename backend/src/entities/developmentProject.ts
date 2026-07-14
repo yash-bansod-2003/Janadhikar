@@ -31,8 +31,7 @@ export class DevelopmentProject {
   name: string;
 
   @Column({
-    type: "enum",
-    enum: PROJECT_CATEGORY_VALUES,
+    type: "text",
     default: PROJECT_CATEGORIES.OTHER,
   })
   category: PROJECT_CATEGORIES;
@@ -41,8 +40,7 @@ export class DevelopmentProject {
   description: string | null;
 
   @Column({
-    type: "enum",
-    enum: PROJECT_STATUS_VALUES,
+    type: "text",
     default: PROJECT_STATUSES.PLANNED,
   })
   status: PROJECT_STATUSES;
@@ -74,7 +72,7 @@ export class DevelopmentProject {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column({ type: "timestamp", nullable: true })
+  @Column({ type: "datetime", nullable: true })
   deleted_at: Date | null;
 
   @ManyToOne("Village", (village: Village) => village.developmentProjects, {

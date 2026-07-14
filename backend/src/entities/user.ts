@@ -28,7 +28,6 @@ export class User {
 
   @Column({
     type: "text",
-    enum: [ROLES.ADMIN, ROLES.MANAGER, ROLES.USER],
     default: ROLES.USER,
   })
   role: string;

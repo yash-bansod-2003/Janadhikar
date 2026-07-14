@@ -28,7 +28,7 @@ export class Department {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column({ type: "timestamp", nullable: true })
+  @Column({ type: "datetime", nullable: true })
   deleted_at: Date | null;
 
   @OneToMany(

@@ -1,0 +1,26 @@
+<div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <Card className="rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-4 flex items-center justify-center text-center h-full">
+              <CardDescription className="text-sm">
+                Generate Compelling marketing copy and content effortessly with
+                AI.
+              </CardDescription>
+            </CardContent>
+          </Card>
+          <Card className="rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-4 flex items-center justify-center text-center h-full">
+              <CardDescription className="text-sm">
+                Create stunning visuals instantly with AI-powered tools that
+                scale effortlessly.
+              </CardDescription>
+            </CardContent>
+          </Card>
+          <Card className="rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-4 flex items-center justify-center text-center h-full">
+              <CardDescription className="text-sm">
+                Conduct comprehensive research on any topic with reliable,
+                structured, AI insights.
+              </CardDescription>
+            </CardContent>
+          </Card>
+        </div>
