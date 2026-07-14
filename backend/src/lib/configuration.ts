@@ -7,10 +7,6 @@ const configurationSchema = z.object({
   host: z.string().default("localhost"),
   port: z.number().int().default(80),
   database: z.object({
-    host: z.string(),
-    port: z.number().int().default(5432),
-    user: z.string(),
-    password: z.string(),
     database: z.string(),
   }),
   jwks_uri: z.url(),
