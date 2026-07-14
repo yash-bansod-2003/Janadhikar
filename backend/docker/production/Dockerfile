@@ -38,14 +38,9 @@ RUN npm uninstall better-sqlite3 \
 
 # Copy the built application from the builder stage
 COPY --chown=node:node --from=builder /build/dist/ .
-COPY --chown=node:node --from=builder /build/ .
-
-RUN mkdir -p /home/node/app/logs /home/node/app/janadhikar.db \
-  && chown -R node:node /home/node/app/logs /home/node/app/janadhikar.db \
-  && chmod -R 755 /home/node/app/logs /home/node/app/janadhikar.db
 
 # Change the owner of the working directory to the node user
-USER node
+# USER node
 
 # Expose port 5000
 EXPOSE 5000
