@@ -32,10 +32,6 @@ const configuration = {
   port: Number.parseInt(process.env.PORT ?? "80"),
   allowed_origins: process.env.ALLOWED_ORIGINS?.split(",") || [],
   database: {
-    host: process.env.DATABASE_HOST,
-    port: Number.parseInt(process.env.DATABASE_PORT ?? "5432"),
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE,
   },
   jwks_uri: process.env.JWKS_URI,
