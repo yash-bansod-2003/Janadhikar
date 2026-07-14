@@ -4,23 +4,55 @@ import { Logger } from "winston";
 import z from "zod";
 import DevelopmentProjectsService from "@/services/developmentProjects.service";
 import { ResponseWithMetadata } from "@/types/index";
-import { DevelopmentProject } from "@/entities/developmentProject";
+import { DevelopmentProject } from "@/types";
 import { developmentProjectQueryValidationSchema } from "@/validators/developmentProjects.validator";
+import VillagesService from "@/services/villages.service";
+import DepartmentsService from "@/services/departments.service";
+import { PROJECT_CATEGORIES, PROJECT_STATUSES } from "@/lib/constants";
 
 class DevelopmentProjectsController {
   constructor(
     private readonly developmentProjectsService: DevelopmentProjectsService,
+    private readonly villagesService: VillagesService,
+    private readonly departmentsService: DepartmentsService,
     private readonly logger: Logger,
   ) {}
 
   async create(req: Request, res: Response, next: NextFunction) {
-    const projectData = req.body as DevelopmentProject;
+    const { villageId, departmentId, ...projectData } =
+      req.body as DevelopmentProject;
     try {
+      const village = await this.villagesService.findOne({
+        where: { id: villageId },
+      });
+      if (!village) {
+        throw createHttpError(404, "Village not found");
+      }
+      const department = await this.departmentsService.findOne({
+        where: { id: departmentId },
+      });
+      if (!department) {
+        throw createHttpError(404, "Department not found");
+      }
       this.logger.info("Creating development project");
-      const project = await this.developmentProjectsService.create(projectData);
+      const project = await this.developmentProjectsService.create({
+        actual_completion_date: projectData?.actual_completion_date,
+        allocated_budget: projectData?.allocated_budget,
+        approval_date: projectData?.approval_date,
+        name: projectData?.name,
+        category: projectData?.category as PROJECT_CATEGORIES,
+        description: projectData?.description,
+        progress_percentage: projectData?.progress_percentage,
+        spent_budget: projectData?.spent_budget,
+        start_date: projectData?.start_date,
+        expected_completion_date: projectData?.expected_completion_date,
+        status: projectData?.status as PROJECT_STATUSES,
+        village: { id: villageId },
+        department: { id: departmentId },
+      });
       this.logger.info(`Development project created with id: ${project.id}`);
       const response: ResponseWithMetadata<DevelopmentProject> = {
-        data: project,
+        data: project as unknown as DevelopmentProject,
         success: true,
       };
       res.json(response);
@@ -51,7 +83,7 @@ class DevelopmentProjectsController {
         .getManyAndCount();
       const response: ResponseWithMetadata<DevelopmentProject[]> = {
         meta: { page, per_page, total },
-        data: projects,
+        data: projects as unknown as DevelopmentProject[],
         success: true,
       };
       return res.json(response);
@@ -76,7 +108,7 @@ class DevelopmentProjectsController {
         throw createHttpError(404, "Development project not found");
       }
       const response: ResponseWithMetadata<DevelopmentProject> = {
-        data: project,
+        data: project as unknown as DevelopmentProject,
         success: true,
       };
       res.json(response);
@@ -90,7 +122,19 @@ class DevelopmentProjectsController {
     try {
       await this.developmentProjectsService.update(
         { id: Number(req.params.id) },
-        projectData,
+        {
+          actual_completion_date: projectData?.actual_completion_date,
+          allocated_budget: projectData?.allocated_budget,
+          approval_date: projectData?.approval_date,
+          name: projectData?.name,
+          category: projectData?.category as PROJECT_CATEGORIES,
+          description: projectData?.description,
+          progress_percentage: projectData?.progress_percentage,
+          spent_budget: projectData?.spent_budget,
+          start_date: projectData?.start_date,
+          expected_completion_date: projectData?.expected_completion_date,
+          status: projectData?.status as PROJECT_STATUSES,
+        },
       );
       const updatedProject = await this.developmentProjectsService.findOne({
         where: { id: Number(req.params.id) },

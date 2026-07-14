@@ -11,12 +11,19 @@ import {
   facilityCreateValidator,
   facilityUpdateValidator,
 } from "@/validators/facilities.validator";
+import VillagesService from "@/services/villages.service";
+import { Village } from "@/entities/village";
 
 const router = Router();
 const facilitiesRepository = AppDataSource.getRepository(Facility);
 const facilitiesService = new FacilitiesService(facilitiesRepository);
+
+const villagesRepository = AppDataSource.getRepository(Village);
+const villagesService = new VillagesService(villagesRepository);
+
 const facilitiesController = new FacilitiesController(
   facilitiesService,
+  villagesService,
   logger,
 );
 

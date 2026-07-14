@@ -134,7 +134,7 @@ class AutenticationController {
   async profile(req: Request, res: Response, next: NextFunction) {
     try {
       const id = (req as AuthenticatedRequest).auth.sub;
-      console.log(id)
+      console.log(id);
       this.logger.debug(`Fetching profile for user id: ${id}`);
       const user = await this.userService.findOne({
         where: { id: Number(id) },

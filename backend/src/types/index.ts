@@ -2,10 +2,16 @@ import { z } from "zod";
 import { userValidationSchema } from "@/validators/users.validators";
 import { restaurantValidationSchema } from "@/validators/restaurants.validator";
 import { villageValidationSchema } from "@/validators/villages.validator";
+import { facilityValidationSchema } from "@/validators/facilities.validator";
+import { developmentProjectValidationSchema } from "@/validators/developmentProjects.validator";
 
 export type User = z.infer<typeof userValidationSchema>;
 export type Restaurant = z.infer<typeof restaurantValidationSchema>;
 export type Village = z.infer<typeof villageValidationSchema>;
+export type Facility = z.infer<typeof facilityValidationSchema>;
+export type DevelopmentProject = z.infer<
+  typeof developmentProjectValidationSchema
+>;
 
 export interface ResponseWithMetadata<T> {
   meta?: {

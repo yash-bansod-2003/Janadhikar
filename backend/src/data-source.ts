@@ -16,4 +16,3 @@ export const AppDataSource = new DataSource({
     idle_in_transaction_session_timeout: 30000,
   },
 });
-

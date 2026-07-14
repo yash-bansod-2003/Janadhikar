@@ -11,6 +11,10 @@ import {
   developmentProjectCreateValidator,
   developmentProjectUpdateValidator,
 } from "@/validators/developmentProjects.validator";
+import DepartmentsService from "@/services/departments.service";
+import { Department } from "@/entities/department";
+import VillagesService from "@/services/villages.service";
+import { Village } from "@/entities/village";
 
 const router = Router();
 const developmentProjectsRepository =
@@ -18,8 +22,17 @@ const developmentProjectsRepository =
 const developmentProjectsService = new DevelopmentProjectsService(
   developmentProjectsRepository,
 );
+
+const villagesRepository = AppDataSource.getRepository(Village);
+const villagesService = new VillagesService(villagesRepository);
+
+const departmentsRepository = AppDataSource.getRepository(Department);
+const departmentsService = new DepartmentsService(departmentsRepository);
+
 const developmentProjectsController = new DevelopmentProjectsController(
   developmentProjectsService,
+  villagesService,
+  departmentsService,
   logger,
 );
 
